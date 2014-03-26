@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>TeemUp</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/foundation.css" />
+    <link rel="stylesheet" href="css/style.css"/>
+    <script src="js/vendor/modernizr.js"></script>
+    <script src="js/vendor/jquery.js"></script>
+    <script src="js/foundation/foundation.js"></script>
+    <script src="js/foundation/foundation.topbar.js"></script>
+    <script src="js/libs/handlebars-1.0.0.js"></script>
+    <script src="js/libs/ember.js"></script>
+    <script src="js/libs/ember-data.js"></script>
+
+    <script src="js/application.js"></script>
+    <script src="js/router.js"></script>
+    <script src="js/models/event.js"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
+  </head>
+
+<body>
+<script type="text/x-handlebars" data-template-name="events">
+<div class="contain-to-grid sticky">
+  <nav class="top-bar" data-topbar>
+    <ul class="title-area">
+      <li class="name">
+        <h1><a href="#">teemup</a></h1>
+      </li>
+      <li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>
+    </ul>
+
+    <section class="top-bar-section">
+      <ul class="right">
+        <li class="has-dropdown">
+          <a href="#">Account</a>
+          <ul class="dropdown">
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+
+    </section>
+  </nav>
+</div>
+
+<div class="row" style="height:90%">
+  <div class="block small-3 large-3 columns navbar">
+      <ul class="side-nav">
+        {{#each}}
+          <li>
+            {{#link-to "event" id}} {{name}} {{/link-to}}
+          </li>
+        {{/each}}
+
+      </ul>
+  </div>
+
+  <div class="small-9 large-9 columns content">
+    {{outlet}}
+  </div>
+
+
+</div>
+</script>
+
+<script type="text/x-handlebars" data-template-name="events/index">
+  {{#each}}
+    <section class="event-info">
+      <div class="row header">
+        <h2> {{#link-to "event" id}} {{name}} {{/link-to}}</h2><br>
+      </div>
+
+      <ul class="small-block-grid-2">
+        <li>
+          {{#view TeemUp.imageView eventBinding="this"}}
+          {{/view}}
+        </li>
+        <li>
+          {{#view TeemUp.mapView eventBinding="this"}}
+          {{/view}}
+        </li>
+      </ul>
+    </section>
+
+    {{/each}}
+
+</script>
+
+<script type="text/x-handlebars" data-template-name="event">
+  <section class="event-info">
+
+  <div class="row header">
+      <h2>{{name}}</h2><br>
+    </div>
+
+    <ul class="small-block-grid-2">
+      <li>
+        {{#view TeemUp.imageView eventBinding="this"}}
+        {{/view}}
+      </li>
+      <li>
+        {{#view TeemUp.mapView eventBinding="this"}}
+        {{/view}}
+      </li>
+    </ul>
+    <section class="row body">
+      <p>{{description}}</p>
+    </section>
+    </section>
+</script>
+
+</body>
+</html>
